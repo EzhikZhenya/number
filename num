@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Churakov
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var number = new Number();
+            Console.WriteLine("Введите код города:");
+            number.reg = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите код оператора (home 17; life 25; MTS 29 or 33; velcom 29 or 44):");
+            number.code = GetCode();
+            Console.WriteLine("Введите код города:");
+            Console.WriteLine(number.reg);
+            Console.WriteLine("Введите код оператора (home 17; life 25; MTS 29 or 33; velcom 29 or 44):");
+            Console.WriteLine(number.code);
+            Console.WriteLine("Введите первые 3 цифры номера:");
+            number.f3 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите последующие 2 цифры номера:");
+            number.n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите последние 2 цифры номера:");
+            number.z = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("+{0:000}-{1:00}-{2:000}-{3:00}-{4:00}", number.reg, number.code, number.f3, number.n, number.z);
+            Console.WriteLine();
+            Console.WriteLine("8-0{1:00}-{2:000}-{3:00}-{4:00}", number.reg, number.code, number.f3, number.n, number.z);
+            Console.ReadLine();
+        }
+
+        static readonly int[] Indexes = { 17, 25, 29, 33, 44 };
+
+        static public int GetCode()
+        {
+            int value;
+            bool parseBool = int.TryParse(Console.ReadLine(), out value);
+            if (!Indexes.Contains(value)) parseBool = false;
+            while (!parseBool)
+            {
+                Console.WriteLine("Введите корректные коды: 17,25,29,33,44");
+                parseBool = int.TryParse(Console.ReadLine(), out value);
+                if (!Indexes.Contains(value)) parseBool = false;
+            }
+            Console.Clear();
+            return value;
+        }
+         static public int GetNumbers(int count)
+        {
+            int value;
+            int.TryParse(Console.ReadLine(), out value);
+            bool parseBool = value < (int) Math.Pow(10, count);
+            while (!parseBool)
+            {
+                Console.WriteLine("Введите корректное число из {0} знаков",count);
+                int.TryParse(Console.ReadLine(), out value);
+                parseBool = value < (int)Math.Pow(10, count);
+            }
+            Console.Clear();
+            return value;
+        }
+    }
+}
